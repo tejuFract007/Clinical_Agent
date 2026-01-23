@@ -212,6 +212,7 @@ const workflow = new StateGraph<AgentState>({
 })
     .addNode("fetch_data", fetchPendingInvestigations)
     .addNode("analyze", analyzeBiomarkers)
+ 
     .addNode("draft", draftClinicalNote);
 
 workflow.addEdge(START, "fetch_data");

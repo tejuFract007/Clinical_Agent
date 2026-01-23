@@ -56,9 +56,9 @@ export const Drawer = ({
                 className={cn(
                     "fixed z-50 bg-white shadow-xl overflow-y-auto transition-transform duration-300",
                     ["left", "right"].includes(position) && "top-0 h-full",
-                    // Mobile: Always full width if position is right/left
-                    // Desktop: Use provided width
-                    width && ["left", "right"].includes(position) ? `w-full md:${width}` : "",
+                    // Use provided width, capped at screen width
+                    width && ["left", "right"].includes(position) ? width : "",
+                    "max-w-full",
                     basePosition[position],
                     open && openPosition[position]
                 )}
