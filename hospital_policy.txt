@@ -1,0 +1,33 @@
+
+HOSPITAL LAB ALERT POLICY v2024.2 (UPDATED)
+===========================================
+
+1. PURPOSE
+To define critical values for hematology and chemistry that require immediate notification.
+
+2. CRITICAL VALUE THRESHOLDS (ADULT)
+
+   2.1 HEMOGLOBIN (Hb)
+       - NORMAL: 12.0 - 16.0 g/dL
+       - WARNING (Level 1): 8.0 - 10.0 g/dL
+       - CRITICAL (Level 4): < 7.0 g/dL or > 20.0 g/dL
+       - LIFE THREATENING (Level 5): < 5.0 g/dL (Immediate Call Required)
+
+   2.2 WHITE BLOOD CELL (WBC)
+       - NORMAL: 4,000 - 11,000 /mcL
+       - CRITICAL (Level 4): <= 2,000 /mcL or > 30,000 /mcL
+       - LIFE THREATENING (Level 5): > 50,000 /mcL or < 500 /mcL
+
+   2.3 RENAL FUNCTION (Creatinine & eGFR)
+       - NORMAL eGFR: > 90 ml/min
+       - KIDNEY FAILURE (Level 4): eGFR < 15 ml/min
+       - ACUTE CHANGE (Level 3): Creatinine increase > 0.3 mg/dL or > 1.5x baseline within 48h.
+
+3. ACTION REQUIRED
+   - LEVEL 1-3: Automatic SMS to doctor + Routine report.
+   - LEVEL 4: Urgent notification to duty doctor within 1 hour.
+   - LEVEL 5: CODE RED. IMMEDIATE phone call to Consultant. Cannot leave lab until confirmed.
+
+4. SPECIAL INSTRUCTIONS
+   - If Patient mentions "Dizziness" with Level 4 Hb, upgrade to Level 5.
+   - For Level 5, AI Agent must simulate a "Page" to the on-call team.

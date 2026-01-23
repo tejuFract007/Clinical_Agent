@@ -1,0 +1,86 @@
+@import "tailwindcss";
+
+@theme {
+  --color-neuro-bg: #050505;
+  --color-neuro-primary: #3b82f6;
+  --color-neuro-secondary: #6366f1;
+  --color-neuro-accent: #06b6d4;
+  --color-neuro-success: #22c55e;
+  --color-neuro-warning: #eab308;
+  --color-neuro-danger: #ef4444;
+  --color-neuro-card: #111111;
+
+  --color-term-green: #33ff00;
+  --color-term-blue: #0088ff;
+  --color-term-yellow: #ffff00;
+  --color-term-red: #ff0000;
+  --color-term-border: #333333;
+}
+
+:root {
+  font-family: 'Inter', system-ui, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color-scheme: light dark;
+  /* Allow both modes, but we control via classes */
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  /* Remove hardcoded background color to allow pages to set it */
+  /* background-color: #000000; */
+}
+
+/* AI Agent Theme Scoped Classes */
+.glass-panel {
+  background: rgba(20, 20, 20, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse-glow {
+
+  0%,
+  100% {
+    opacity: 1;
+    box-shadow: 0 0 10px rgba(239, 68, 68, 0.2);
+  }
+
+  50% {
+    opacity: .8;
+    box-shadow: 0 0 20px rgba(239, 68, 68, 0.5);
+  }
+}
+
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(156, 163, 175, 0.5);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(107, 114, 128, 0.8);
+}
