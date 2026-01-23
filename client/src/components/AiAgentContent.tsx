@@ -109,44 +109,57 @@ export const AiAgentContent: React.FC = () => {
 
             // Using simple HTML table structure for queue inside chat
             const PatientList = () => (
-                <div className="flex flex-col gap-2 w-full mt-2">
-                    {/* Header */}
-                    <div className="grid grid-cols-[30px_1fr_100px] gap-2 px-3 py-2 border-b border-gray-100 text-[10px] uppercase tracking-wider text-gray-400 font-semibold">
+                <div className="flex flex-col gap-2 w-full mt-2 overflow-x-hidden">
+                    {/* Header - Hidden on mobile, visible on md+ */}
+                    <div className="hidden md:grid grid-cols-[30px_1fr_100px] gap-2 px-3 py-2 border-b border-gray-100 text-[10px] uppercase tracking-wider text-gray-400 font-semibold">
                         <div>#</div>
                         <div>Patient</div>
                         <div className="text-right">Action</div>
                     </div>
 
                     {queue.map((p) => (
-                        <div key={p.id} className="grid grid-cols-[30px_1fr_100px] gap-2 items-center bg-white p-2 rounded-xl border border-gray-100 hover:bg-gray-50 hover:shadow-sm transition-all group">
-                            {/* Avatar/Initial */}
-                            <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-[10px] font-bold text-gray-500 group-hover:bg-white group-hover:shadow-sm transition-all border border-transparent group-hover:border-gray-200">
-                                {p.patientName.charAt(0)}
+                        <div key={p.id} className="flex flex-col md:grid md:grid-cols-[30px_1fr_100px] gap-3 md:gap-2 items-start md:items-center bg-white p-3 md:p-2 rounded-xl border border-gray-100 hover:bg-gray-50 hover:shadow-sm transition-all group">
+
+                            {/* Mobile Top Row: Avatar + Name + ID */}
+                            <div className="flex items-center gap-3 md:contents w-full">
+                                {/* Avatar */}
+                                <div className="w-8 h-8 md:w-8 md:h-8 rounded-full bg-gray-100 flex shrink-0 items-center justify-center text-[10px] font-bold text-gray-500 group-hover:bg-white group-hover:shadow-sm transition-all border border-transparent group-hover:border-gray-200">
+                                    {p.patientName.charAt(0)}
+                                </div>
+
+                                <div className="min-w-0 flex-1 md:hidden">
+                                    <div className="font-bold text-gray-800 text-sm">{p.patientName}</div>
+                                </div>
                             </div>
 
-                            {/* Details */}
-                            <div className="min-w-0">
+                            {/* Details (Desktop Only - Repurposed for Mobile below) */}
+                            <div className="min-w-0 hidden md:block">
                                 <div className="font-bold text-gray-800 text-xs flex items-center gap-2 truncate">
                                     {p.patientName}
                                 </div>
                                 <div className="text-[10px] text-gray-400">{p.testName}</div>
                             </div>
 
+                            {/* Mobile Details Row */}
+                            <div className="md:hidden w-full pl-11 -mt-2">
+                                <div className="text-xs text-gray-500">{p.testName}</div>
+                            </div>
+
                             {/* ACTION BUTTON */}
-                            <div className="text-right">
+                            <div className="w-full md:w-auto text-right mt-2 md:mt-0 pl-11 md:pl-0">
                                 {p.status !== 'Processed' ? (
                                     <button
                                         onClick={() => handleAnalyzeSpecific(p.id, p.patientName)}
-                                        className="bg-blue-600 hover:bg-blue-700 text-white text-[9px] font-bold px-3 py-1.5 rounded-lg shadow-blue-100 shadow-md transition-all flex items-center gap-1.5 ml-auto"
+                                        className="w-full md:w-auto justify-center bg-blue-600 hover:bg-blue-700 text-white text-[10px] font-bold px-3 py-2 md:py-1.5 rounded-lg shadow-blue-100 shadow-md transition-all flex items-center gap-1.5 ml-auto"
                                     >
-                                        <Play size={8} fill="currentColor" /> ANALYZE
+                                        <Play size={10} fill="currentColor" /> ANALYZE
                                     </button>
                                 ) : (
                                     <button
                                         onClick={() => handleDownload(p.id)}
-                                        className="bg-white hover:bg-gray-50 text-gray-500 border border-gray-200 text-[9px] font-bold px-3 py-1.5 rounded-lg transition-all flex items-center gap-1.5 ml-auto hover:shadow-sm"
+                                        className="w-full md:w-auto justify-center bg-white hover:bg-gray-50 text-gray-500 border border-gray-200 text-[10px] font-bold px-3 py-2 md:py-1.5 rounded-lg transition-all flex items-center gap-1.5 ml-auto hover:shadow-sm"
                                     >
-                                        <FileText size={8} /> VIEW
+                                        <FileText size={10} /> VIEW
                                     </button>
                                 )}
                             </div>
@@ -228,7 +241,7 @@ export const AiAgentContent: React.FC = () => {
         const iconColor = risk === "Critical" ? "text-red-500" : (risk === "Urgent" ? "text-orange-500" : "text-green-500");
 
         return (
-            <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="flex flex-col gap-3 min-w-[280px]">
+            <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="flex flex-col gap-3 min-w-[260px] max-w-full">
                 <div className={`p-4 rounded-xl border ${color} shadow-sm relative overflow-hidden bg-white`}>
 
                     <div className="flex justify-between items-start mb-3 relative z-10">
