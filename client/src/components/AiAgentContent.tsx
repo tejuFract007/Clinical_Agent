@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { type PatientReport } from './PatientCard';
+import type { PatientReport } from './PatientCard';
 import { Send, Bot, User, Activity, AlertCircle, ShieldAlert, CheckCircle, AlertTriangle, FileText, Download, Play, Zap } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
