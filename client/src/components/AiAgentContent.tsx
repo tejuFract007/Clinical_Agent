@@ -378,7 +378,7 @@ export const AiAgentContent: React.FC = () => {
                         onChange={(e) => setInputValue(e.target.value)}
                         onKeyPress={(e) => e.key === 'Enter' && handleSend()}
                         placeholder="Ask the agent to scan database..."
-                        className="relative w-full bg-gray-50 border border-gray-200 rounded-2xl py-4 pl-6 pr-14 text-gray-900 focus:outline-none focus:border-blue-300 focus:bg-white transition-all shadow-inner focus:shadow-lg focus:shadow-blue-50 text-base placeholder-gray-400 z-10"
+                        className="relative w-full bg-gray-50 border border-gray-200 rounded-2xl py-3 md:py-4 pl-4 md:pl-6 pr-12 md:pr-14 text-gray-900 focus:outline-none focus:border-blue-300 focus:bg-white transition-all shadow-inner focus:shadow-lg focus:shadow-blue-50 text-sm md:text-base placeholder-gray-400 z-10"
                         disabled={isTyping}
                         autoFocus
                     />

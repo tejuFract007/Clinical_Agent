@@ -24,8 +24,8 @@ export const Drawer = ({
     }, [open, onClose]);
 
     const basePosition = {
-        right: cn("right-0 translate-x-full", width),
-        left: cn("left-0 -translate-x-full", width),
+        right: cn("right-0 translate-x-full"),
+        left: cn("left-0 -translate-x-full"),
         top: cn("top-0 left-0 -translate-y-full w-full", height),
         bottom: cn("bottom-0 left-0 translate-y-full w-full", height),
     };
@@ -55,7 +55,10 @@ export const Drawer = ({
                 data-testid="drawer"
                 className={cn(
                     "fixed z-50 bg-white shadow-xl overflow-y-auto transition-transform duration-300",
-                    ["left", "right"].includes(position) && "top-0 h-full ",
+                    ["left", "right"].includes(position) && "top-0 h-full",
+                    // Mobile: Always full width if position is right/left
+                    // Desktop: Use provided width
+                    width && ["left", "right"].includes(position) ? `w-full md:${width}` : "",
                     basePosition[position],
                     open && openPosition[position]
                 )}
