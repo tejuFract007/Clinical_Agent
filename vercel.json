@@ -1,0 +1,18 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "server.py",
+      "use": "@vercel/python",
+      "config": {
+        "includeFiles": ["hospital_policy.txt", "clinical_agent.py"]
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/server.py"
+    }
+  ]
+}

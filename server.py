@@ -174,18 +174,24 @@ async def download_report(report_id: str):
         if not report:
             raise HTTPException(status_code=404, detail="Report not found")
         
+        # Determine output directory based on environment
+        if os.environ.get("VERCEL") or os.environ.get("RENDER"):
+            output_dir = "/tmp"
+        else:
+            output_dir = "generated_reports"
+            
         # Ensure dir exists
-        os.makedirs("generated_reports", exist_ok=True)
+        os.makedirs(output_dir, exist_ok=True)
 
         # Find the generated file (The CLI tool creates files like Report_Priya_Sharma_...)
         # We look for the most recent file matching the name
         name_clean = report['patientName'].replace(" ", "_")
-        files = glob.glob(f"generated_reports/Report_{name_clean}_*.txt")
+        files = glob.glob(f"{output_dir}/Report_{name_clean}_*.txt")
         
         final_path = ""
         if not files:
             # If no file exists (maybe agent didn't run fully or CLI wasn't used), create one on the fly
-            filename = f"generated_reports/Report_{name_clean}_{int(time.time())}.txt"
+            filename = f"{output_dir}/Report_{name_clean}_{int(time.time())}.txt"
             
             # Safe get for analysis
             analysis = report.get('aiAnalysis', {})

@@ -236,8 +236,13 @@ RECOMMENDED ACTION:
 """
 
     # Save to File (The "Real Work")
-    os.makedirs("generated_reports", exist_ok=True)
-    filename = f"generated_reports/Report_{str(report.get('patientName', 'Unknown')).replace(' ', '_')}_{int(time.time())}.txt"
+    if os.environ.get("VERCEL") or os.environ.get("RENDER"):
+        output_dir = "/tmp"
+    else:
+        output_dir = "generated_reports"
+        
+    os.makedirs(output_dir, exist_ok=True)
+    filename = f"{output_dir}/Report_{str(report.get('patientName', 'Unknown')).replace(' ', '_')}_{int(time.time())}.txt"
     
     with open(filename, "w", encoding="utf-8") as f:
         f.write(note_content)
