@@ -219,24 +219,12 @@ RISK ASSESSMENT: {risk}
         traceback.print_exc()
         raise HTTPException(status_code=500, detail=str(e))
 
-# Mount static files (Frontend)
-app.mount("/assets", StaticFiles(directory="client/dist/assets"), name="assets")
+# Static files are handled by the Frontend deployment (Vercel/Render Static Site)
+# We only serve API here.
 
-# Serve index.html for root and SPA fallback
-@app.get("/{full_path:path}")
-async def serve_spa(full_path: str):
-    # If it's an API call that wasn't matched above, let it 404 naturally?
-    # Actually, Starlette routing matches in order. If we reached here, it's not an API route.
-    # Check if it starts with /api just in case, though API routes are above.
-    if full_path.startswith("api/"):
-        raise HTTPException(status_code=404, detail="API Endpoint not found")
-    
-    # Check if file exists in root of dist (like vite.svg), otherwise serve index.html
-    possible_path = os.path.join("client/dist", full_path)
-    if os.path.exists(possible_path) and os.path.isfile(possible_path):
-        return FileResponse(possible_path)
-        
-    return FileResponse("client/dist/index.html")
+@app.get("/")
+async def root():
+    return {"status": "ok", "message": "Clinical AI Agent Backend is Running"}
 
 if __name__ == "__main__":
     import uvicorn
