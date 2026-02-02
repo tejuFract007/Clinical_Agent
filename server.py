@@ -228,6 +228,7 @@ async def root():
 
 if __name__ == "__main__":
     import uvicorn
-    print("Starting Clinical Agent Server on http://localhost:8000")
+    port = int(os.environ.get("PORT", 8000))
+    print(f"Starting Clinical Agent Server on http://localhost:{port}")
     # Using 1 worker to allow shared 'log_queue' to work simply
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run(app, host="0.0.0.0", port=port)
