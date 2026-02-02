@@ -13,6 +13,9 @@ interface ChatMessage {
     style?: string;
 }
 
+// Define API Base URL from Environment Variable or fallback to localhost
+const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:8000";
+
 export const AiAgentContent: React.FC = () => {
     const [messages, setMessages] = useState<ChatMessage[]>([]);
     const [queue, setQueue] = useState<PatientReport[]>([]);
@@ -39,8 +42,11 @@ export const AiAgentContent: React.FC = () => {
     }, []);
 
     // 2. Stream Listener
+
     useEffect(() => {
-        const eventSource = new EventSource('http://localhost:8000/api/stream');
+
+        const eventSource = new EventSource(`${API_BASE_URL}/api/stream`);
+
         eventSource.addEventListener('log', (e: MessageEvent) => {
             const data = JSON.parse(e.data);
             if (data.msg.includes("DEBUG") || data.msg.includes("search_tool") || data.msg.includes("reasoning_engine") || data.msg.includes("Processing")) {
@@ -53,7 +59,7 @@ export const AiAgentContent: React.FC = () => {
     // 3. Data Sync & Initial Triage
     const loadData = async () => {
         try {
-            const res = await fetch('http://localhost:8000/api/reports');
+            const res = await fetch(`${API_BASE_URL}/api/reports`);
             const data = await res.json();
             setQueue(data);
             return data;
@@ -204,7 +210,7 @@ export const AiAgentContent: React.FC = () => {
         ]);
 
         try {
-            const res = await fetch(`http://localhost:8000/api/analyze/${id}`, { method: 'POST' });
+            const res = await fetch(`${API_BASE_URL}/api/analyze/${id}`, { method: 'POST' });
             const report = await res.json();
 
             setMessages(prev => [...prev, { id: Date.now() + 2, sender: 'agent', text: `Analysis complete.`, type: 'report', reportData: report }]);
@@ -231,7 +237,7 @@ export const AiAgentContent: React.FC = () => {
     };
 
     const handleDownload = (id: string) => {
-        window.open(`http://localhost:8000/api/download/${id}`, '_blank');
+        window.open(`${API_BASE_URL}/api/download/${id}`, '_blank');
     };
 
     const renderReport = (report: PatientReport) => {
